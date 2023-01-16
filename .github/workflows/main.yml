@@ -10,7 +10,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v1
       - name: Fetch issues and generate markdowns
-        uses: sredevopsdev/hugo-with-github-issues@master
+        uses: sredevopsdev/hugo-with-github-issues@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repo: 'testing-hugo-with-github-issues'
