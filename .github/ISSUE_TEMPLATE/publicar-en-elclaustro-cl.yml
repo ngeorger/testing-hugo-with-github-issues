@@ -37,6 +37,7 @@ body:
       label: imagen
       description: ¿Tienes una imagen para acompañar tu contenido?
       placeholder: "Arrastra y suelta tu imagen aquí o la URL de la imagen"
+      render: bash
     validations:
       required: false
   - type: textarea
@@ -44,14 +45,11 @@ body:
     attributes:
       label: Contenido
       description: Puedes copiar y pegar el contenido de tu publicación, o editar directamente con Markdown (Editor integrado 🧛🏻‍♂️)
-      placeholder: Puedes agregar texto con formato, imágenes, videos e incluso emojis 👻
+      placeholder: Aquí arriba puedes usar el editor integrado 👆🏻
     validations:
       required: true
-  - type: checkboxes
-    id: terms
-    attributes:
-      label: Términos y condiciones
-      description: Al enviar tu contenido, aceptas que sea publicado en ElClaustro.cl bajo licecia Creative Commons NC SA 4.0.
-      options:
-        - label: Acepto publicar mi contenido bajo la licencia Creative Commons NC SA 4.0.
-          required: true
+  - type: markdown
+    attributes: 
+      value: |
+        ## Términos y condiciones
+        Al enviar tu contenido, aceptas que sea publicado en ElClaustro.cl bajo licecia Creative Commons NC SA 4.0.
