@@ -4,7 +4,7 @@ date: 2023-01-17T00:51:39Z
 author: "ngeorger"
 draft: false
 type: post
-tags: []
+tags: ["good first issue"]
 categories: null 
 image: null
 ---
