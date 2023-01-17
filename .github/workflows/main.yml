@@ -9,11 +9,6 @@ on:
 jobs:
   convert-issues-to-markdown:
     runs-on: ubuntu-latest
-    permissions:
-        contents: write
-        pull-requests: write
-        issues: read
-        id-token: read
     
     name: Convert issues to markdown.
     steps:
