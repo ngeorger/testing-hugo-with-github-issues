@@ -2,6 +2,9 @@ name: Convert issues to markdown.
 on:
   issues:
     types: [opened, edited]
+  push:
+    paths:
+      - .github/workflows/main.yml
 
     
   workflow_dispatch:
@@ -14,10 +17,6 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-        with:
-          ref: main
-          persist-credentials: true
-          
 
       - name: Fetch issues and generate markdowns
         uses: sredevopsdev/hugo-with-github-issues@main
@@ -25,7 +24,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repo: ${{ github.events.repository.name }}
-          owner: ${{ github.events.repository.owner.login }}
+          owner: ${{ github.repository_owner }}
           skip-author: 'github-actions[bot]'
           use-issue-seperator: 'true'
           output: 'content/posts'
