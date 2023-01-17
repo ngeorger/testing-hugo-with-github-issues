@@ -1,14 +1,18 @@
 name: "Convert issues to markdowns"
 on:
+  issues:
+    types: [opened, edited ]
+    
   workflow_dispatch:
     
 jobs:
   convert_issues_to_markdown_job:
     runs-on: ubuntu-latest
-    name: Convert issues to markdowns.
+    name: Convert issues to markdown.
     steps:
       - name: checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
+
       - name: Fetch issues and generate markdowns
         uses: sredevopsdev/hugo-with-github-issues@main
         with:
@@ -16,16 +20,15 @@ jobs:
           repo: 'testing-hugo-with-github-issues'
           owner: 'ngeorger'
           skip-author: 'utterances-bot'
-          use-issue-seperator: 'false'
+          use-issue-seperator: 'true'
           output: 'content/posts'
+          issue-state: 'open'
+          skip-pull-requests: 'true'
       - name: Commit files
         run: |
-          git config --local user.email "ngeorger@gmail.com"
-          git config --local user.name "Nicolas Georger"
+          git config --local user.email "{{ secrets.GITHUB_EMAIL }}"
+          git config --local user.name "{{ secrets.GITHUB_USERNAME }}"
+          date > generated.txt
           git add .
-          git commit -m "Add Posts"
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+          git commit -m "generated"
+          git push
