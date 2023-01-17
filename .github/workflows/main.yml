@@ -1,18 +1,13 @@
 name: Convert issues to markdown.
 on:
   issues:
-    types: [opened, edited]
-  push:
-    paths:
-      - .github/workflows/main.yml
-
+    types: [opened, edited ]
     
   workflow_dispatch:
     
 jobs:
-  convert-issues-to-markdown:
+  convert_issues_to_markdown_job:
     runs-on: ubuntu-latest
-
     name: Convert issues to markdown.
     steps:
       - name: checkout
@@ -20,28 +15,23 @@ jobs:
 
       - name: Fetch issues and generate markdowns
         uses: sredevopsdev/hugo-with-github-issues@main
-        id: hugo-with-github-issues
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          repo: ${{ github.events.repository.name }}
-          owner: ${{ github.repository_owner }}
-          skip-author: 'github-actions[bot]'
+          repo: 'testing-hugo-with-github-issues'
+          owner: 'ngeorger'
+          skip-author: 'utterances-bot'
           use-issue-seperator: 'true'
           output: 'content/posts'
           issue-state: 'open'
           skip-pull-requests: 'true'
-      - name: Set output
-        continue-on-error: true
-        run: echo "ISSUES_ADDED=${{ steps.hugo-with-github-issues.outputs.filenames }}" >> $GITHUB_ENV
       - name: Commit files
         env:
           GITHUB_USERNAME: ${{ github.actor }}
           GITHUB_EMAIL: ${{ github.actor }}@users.noreply.github.com
-          ISSUES_ADDED: ${{ env.ISSUES_ADDED }}
         run: |
           date > generated.txt
           git config --local user.email ${{ env.GITHUB_EMAIL }} &&
           git config --local user.name ${{ env.GITHUB_USERNAME }} &&
           git add . &&
-          git commit -m "Create new posts from issues, added ${{ env.ISSUES_ADDED }}"
+          git commit -m "Add changes"
           git push
