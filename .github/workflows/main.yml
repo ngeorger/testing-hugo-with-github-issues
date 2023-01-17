@@ -21,7 +21,7 @@ jobs:
           owner: 'ngeorger'
           skip-author: 'utterances-bot'
           use-issue-seperator: 'true'
-          output: 'content/posts'
+          output: 'content/posts2'
           issue-state: 'open'
           skip-pull-requests: 'true'
       - name: Commit files
